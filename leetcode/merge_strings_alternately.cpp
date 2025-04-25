@@ -15,12 +15,24 @@ class Solution {
 };
 
 string Solution::mergeAlternately(string word1, string word2) {
-    cout<< "Hey" << endl;
-    return "Hey";
+    int count1, count2 = 0;
+    int len1 = word1.length(), len2 = word2.length();
+    
+    string updated = "";
+
+    for(count1 = 0; count1 < len1; count1++) {
+        if(count1 < len2) {
+            updated = updated + word1[count1] + word2[count1];
+        }        
+    }
+
+    return updated;
 }
 
 int main() {
     Solution sol;
-    sol.mergeAlternately("Hello", "Hey");
+    string result = sol.mergeAlternately("Hello", "Hey");
+    cout<< result << endl;
+
     return 0;
 }
