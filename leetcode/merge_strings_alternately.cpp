@@ -15,33 +15,33 @@ class Solution {
 };
 
 string Solution::mergeAlternately(string word1, string word2) {
-    int count;
-    int len1 = word1.length(), len2 = word2.length();
+    int count1 = 0, count2 = 0;
+
+    int end = word1.length() + 2;
     
-    string updated = "";
-
-    for(count = 0; count < len1; count++) {
-        if(count >= len2) {
-            break;
+    for(count1 = 0; count1 <= end;) {
+        if(word2[count1])
+        {
+            auto it = word1.insert(word1.begin() + count1 + 1, word2[count2]);
+            count1+=2;
+            count2+=1;
         }
-        if(count < len2) {
-            updated = updated + word1[count] + word2[count];
-        }        
+        else {
+            count1+=1;
+            end++;
+        }
+        
     }
+    
+    if (count2 < word2.length())
+            word1 += word2.substr(count2);
 
-    if(len1 > len2) {
-        updated = updated + word1.substr(count);
-    }
-    else if(len2 > len1) {
-        updated = updated + word2.substr(count);
-    }
-
-    return updated;
+    return word1;
 }
 
 int main() {
     Solution sol;
-    string result = sol.mergeAlternately("abcul", "pqr");
+    string result = sol.mergeAlternately("abcd", "pq");
     cout<< result << endl;
 
     return 0;
