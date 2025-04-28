@@ -17,16 +17,19 @@ class Solution {
 
 string Solution::mergeAlternately(string word1, string word2) {
     int count1 = 0, count2 = 0;
-    int end = word1.length() < word2.length() ? word1.length() : word2.length();
-    for(count1 = 0; count1 <= end;) {
-        auto it = word1.insert(word1.begin() + count1 + 1, word2[count2]);
-        count1+=2;
-        count2+=1;
+    int end = word1.length();
+    for(count1 = 0; count1 < end;) {
+        if(count1 >= word2.length())
+            break;
+           
+        auto it = word1.insert(word1.begin() + count2 + 1, word2[count1]);
+        count1+=1;
+        count2+=2;
         
     }
     
-    if (count2 < word2.length()) {
-        word1 += word2.substr(count2);
+    if (count1 < word2.length()) {
+        word1 += word2.substr(count1);
     }
 
     return word1;
@@ -34,7 +37,7 @@ string Solution::mergeAlternately(string word1, string word2) {
 
 int main() {
     Solution sol;
-    string result = sol.mergeAlternately("trivialcases", "simplestitem");
+    string result = sol.mergeAlternately("abcd", "pq");
     cout<< result << endl;
 
     return 0;
