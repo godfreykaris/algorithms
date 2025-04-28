@@ -16,23 +16,24 @@ class Solution {
 };
 
 string Solution::mergeAlternately(string word1, string word2) {
-    int count1 = 0, count2 = 0;
-    int end = word1.length();
-    for(count1 = 0; count1 < end;) {
-        if(count1 >= word2.length())
-            break;
-           
-        auto it = word1.insert(word1.begin() + count2 + 1, word2[count1]);
-        count1+=1;
-        count2+=2;
+    string result;
+        // Pre-allocate capacity to avoid reallocations
+        result.reserve(word1.length() + word2.length());
         
-    }
-    
-    if (count1 < word2.length()) {
-        word1 += word2.substr(count1);
-    }
-
-    return word1;
+        // Merge alternately until one string is exhausted
+        size_t i = 0;
+        while (i < word1.length() && i < word2.length()) {
+            result += word1[i];
+            result += word2[i];
+            ++i;
+        }
+        
+        // Append remaining characters from word1, if any
+        result.append(word1, i);
+        // Append remaining characters from word2, if any
+        result.append(word2, i);
+        
+        return result;
 }
 
 int main() {
