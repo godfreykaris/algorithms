@@ -5,49 +5,26 @@ using namespace std;
 class Solution {
     public:
         string gcdOfStrings(string str1, string str2) {
-            string gcd = "";
-            bool repeating = false;
-            int gcdIterator = 0;
+           // If concatenating str1 + str2 != str2 + str1 then no common divisor exists
+           if(str1 + str2 != str2 + str1)
+                return "";
 
-            
-            if(str1.length() > str2.length())
-            {
-                str1.swap(str2);
-            }
-            
-            for( int i = 0; i < str2.length(); i++)
-            {   
-                if(i >= str1.length())
-                {
-                    if(gcdIterator >= gcd.length())
-                    {
-                        gcdIterator = 0;
-                    }
+            // Find GCD of lengths using Euclidean algorithm
+            int gcdOfLength = gcd(str1.length(), str2.length());
 
-                    if(str2[i] == gcd[gcdIterator]) {
-                        gcdIterator++;                  
-                    }
-                    else
-                    {
-                        gcd = "";
-                        break;
-                    }
-
-                    continue;
-                }
-
-                if(str1[i] == str2[i]) {
-                    gcd += str1[i];                    
-                }
-                else
-                {
-                    gcd = "";
-                    break;
-                }
-            }
-
-            return gcd;
+            // Return substring of str1 from 0 to gcd length
+            return str1.substr(0, gcdOfLength);
         }
+    
+        private:
+            int gcd(int a, int b) {
+                while(b) {
+                    a %= b;
+                    swap(a,b);
+                }
+
+                return a;
+            }
 };
 
 
@@ -56,6 +33,8 @@ int main() {
     string result = sol.gcdOfStrings("ABABAB", "ABAB");
 
     cout << result << endl;
+    //Epected "AB"
+    //Output "ABAB"
 
     return 0;
 }
